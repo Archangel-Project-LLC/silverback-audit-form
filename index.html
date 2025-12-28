@@ -32,6 +32,7 @@
             </div>
             <div class="progress-step" data-step="6">
                 <div class="step-number">6</div>
+                <div class="step-number">6</div>
                 <div class="step-label">Health</div>
             </div>
             <div class="progress-step" data-step="7">
@@ -99,15 +100,1624 @@
                 </div>
             </div>
 
+            <!-- STEP 2: PHOTOS -->
+            <div class="form-step" data-step="2">
+                <h2>Starting Photos</h2>
+                <p style="color: #6b7280; margin-bottom: 24px;">Starting photos will be displayed based on the photo configuration for the client's service.</p>
+                
+                <div class="form-group">
+                    <label for="photoFront">Front View Photo*</label>
+                    <input type="file" id="photoFront" name="photoFront" accept="image/*" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="photoSide">Side View Photo*</label>
+                    <input type="file" id="photoSide" name="photoSide" accept="image/*" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="photoBack">Back View Photo*</label>
+                    <input type="file" id="photoBack" name="photoBack" accept="image/*" required>
+                </div>
+            </div>
+
+            <!-- STEP 3: MEASUREMENTS -->
+            <div class="form-step" data-step="3">
+                <h2>Measurements</h2>
+                <p style="color: #6b7280; margin-bottom: 24px;">All measurements in centimeters (cm)</p>
+                
+                <div class="form-group">
+                    <label for="chest">Chest/Bust (cm)*</label>
+                    <input type="number" id="chest" name="chest" step="0.1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="waist">Waist (cm)*</label>
+                    <input type="number" id="waist" name="waist" step="0.1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="hips">Hips (cm)*</label>
+                    <input type="number" id="hips" name="hips" step="0.1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="thighs">Thighs (cm)*</label>
+                    <input type="number" id="thighs" name="thighs" step="0.1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="arms">Arms (cm)*</label>
+                    <input type="number" id="arms" name="arms" step="0.1" required>
+                </div>
+            </div>
+
+            <!-- STEP 4: NUTRITION -->
+            <div class="form-step" data-step="4">
+                <h2>Nutrition and Supplementation</h2>
+                
+                <div class="form-group">
+                    <label for="nutritionalPractice">Do you follow any broad stroke nutritional practice?*</label>
+                    <select id="nutritionalPractice" name="nutritionalPractice" required>
+                        <option value="">---------</option>
+                        <option value="None">None</option>
+                        <option value="Paleo">Paleo</option>
+                        <option value="Primal">Primal</option>
+                        <option value="Vegan">Vegan</option>
+                        <option value="Vegetarian">Vegetarian</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="foodsEnjoy">Which foods do you most enjoy eating?*</label>
+                    <textarea id="foodsEnjoy" name="foodsEnjoy" rows="3" required placeholder="If you'll be receiving a meal plan, please include top 5 meats, dairy, fats, fruits, vegetables, starches/grains, snacks and condiments."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="foodsDislike">Which foods do you dislike eating?*</label>
+                    <textarea id="foodsDislike" name="foodsDislike" rows="3" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Do you have food allergies or sensitivities?*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="foodAllergies" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="foodAllergies" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="allergicFoods">If so, what foods affect you negatively?</label>
+                    <textarea id="allergicFoods" name="allergicFoods" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Are you currently following a structured diet or nutrition plan?*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="structuredDiet" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="structuredDiet" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="trackingMacros">Are you currently tracking calories and macronutrients?*</label>
+                    <select id="trackingMacros" name="trackingMacros" required>
+                        <option value="">---------</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                        <option value="Sometimes">Sometimes</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="currentMacros">If so, what is your current macro split and/or calorie intake?</label>
+                    <textarea id="currentMacros" name="currentMacros" rows="2" placeholder="E.g. 150g protein, 200g carbs, 70g fat"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="everTracked">If not, have you ever tracked your calories and macros?*</label>
+                    <select id="everTracked" name="everTracked" required>
+                        <option value="">---------</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Have you ever consistently stuck to specific macros to within +/- 5 grams of accuracy?*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="macroAccuracy" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="macroAccuracy" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Do you know how to track calories and macros?*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="knowTracking" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="knowTracking" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="mealsPerDay">How many meals do you typically eat each day?*</label>
+                    <select id="mealsPerDay" name="mealsPerDay" required>
+                        <option value="">---------</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6+">6+</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="groceryFrequency">On average, how often do you grocery shop?*</label>
+                    <select id="groceryFrequency" name="groceryFrequency" required>
+                        <option value="">---------</option>
+                        <option value="Daily">Daily</option>
+                        <option value="2-3x week">2-3x per week</option>
+                        <option value="Weekly">Weekly</option>
+                        <option value="Bi-weekly">Bi-weekly</option>
+                        <option value="Monthly">Monthly</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="groceryLocation">Where do you usually buy your groceries?*</label>
+                    <input type="text" id="groceryLocation" name="groceryLocation" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="eatOutFrequency">How often, on average, would you say you eat out?*</label>
+                    <select id="eatOutFrequency" name="eatOutFrequency" required>
+                        <option value="">---------</option>
+                        <option value="Daily">Daily</option>
+                        <option value="4-6x week">4-6x per week</option>
+                        <option value="2-3x week">2-3x per week</option>
+                        <option value="Weekly">Weekly</option>
+                        <option value="Rarely">Rarely</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="eatOutLocations">Where do you usually eat out?*</label>
+                    <textarea id="eatOutLocations" name="eatOutLocations" rows="2" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="supplements">Describe your current supplement/vitamin regimen*</label>
+                    <textarea id="supplements" name="supplements" rows="3" required placeholder="Please include brand and amount e.g. 'Isopure Low Carb Whey Protein - 2 scoops/day'"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="pastCoaching">Describe any past experience you've had with a nutrition coach*</label>
+                    <textarea id="pastCoaching" name="pastCoaching" rows="3" required></textarea>
+                </div>
+
+                <h3 style="margin-top: 32px; margin-bottom: 16px;">Diet History</h3>
+                <p style="color: #6b7280; margin-bottom: 16px;">Tell me exactly what you ate and drank over the course of the past three days, including portion sizes or weights.</p>
+
+                <div class="form-group">
+                    <label for="dietDay1">Day One*</label>
+                    <textarea id="dietDay1" name="dietDay1" rows="4" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="dietDay2">Day Two*</label>
+                    <textarea id="dietDay2" name="dietDay2" rows="4" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="dietDay3">Day Three*</label>
+                    <textarea id="dietDay3" name="dietDay3" rows="4" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="waterIntake">How much water do you usually drink each day?*</label>
+                    <input type="text" id="waterIntake" name="waterIntake" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="triggerFoods">Please list any trigger foods (foods that you find it very hard to resist eating that could potentially derail dietary adherence)</label>
+                    <textarea id="triggerFoods" name="triggerFoods" rows="2"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="alcoholWeekly">How much alcohol do you drink in a week?*</label>
+                    <select id="alcoholWeekly" name="alcoholWeekly" required>
+                        <option value="">---------</option>
+                        <option value="Do not drink">Do not drink</option>
+                        <option value="1-2 units">1-2 units</option>
+                        <option value="2-4 units">2-4 units</option>
+                        <option value="4-6 units">4-6 units</option>
+                        <option value="6-8 units">6-8 units</option>
+                        <option value="8+ units">8+ units</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="caffeineDaily">On average, how many caffeinated drinks do you consume per day?*</label>
+                    <select id="caffeineDaily" name="caffeineDaily" required>
+                        <option value="">---------</option>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8+">8+</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="caffeineTypes">What types of caffeinated drinks do you consume?*</label>
+                    <input type="text" id="caffeineTypes" name="caffeineTypes" required placeholder="i.e. energy drinks, coffee, tea, carbonated drinks">
+                </div>
+
+                <div class="form-group">
+                    <label>Do you smoke tobacco products?*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="smoker" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="smoker" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="cigarettesDaily">If yes, how many cigarettes per day?</label>
+                    <input type="number" id="cigarettesDaily" name="cigarettesDaily" min="0">
+                </div>
+
+                <h3 style="margin-top: 32px; margin-bottom: 16px;">Food Consumption</h3>
+                <p style="color: #6b7280; margin-bottom: 16px;">Do you currently eat or use:</p>
+
+                <div class="form-group">
+                    <label for="consumeAlcohol">Alcohol*</label>
+                    <select id="consumeAlcohol" name="consumeAlcohol" required>
+                        <option value="">---------</option>
+                        <option value="Regularly">Regularly</option>
+                        <option value="Sometimes">Sometimes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="consumeCoffee">Coffee*</label>
+                    <select id="consumeCoffee" name="consumeCoffee" required>
+                        <option value="">---------</option>
+                        <option value="Regularly">Regularly</option>
+                        <option value="Sometimes">Sometimes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Margarine*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="consumeMargarine" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="consumeMargarine" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Sweets and Candies*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="consumeSweets" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="consumeSweets" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Fast Foods*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="consumeFastFood" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="consumeFastFood" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Soft Drinks*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="consumeSoftDrinks" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="consumeSoftDrinks" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Dairy Based Foods*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="consumeDairy" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="consumeDairy" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Wheat Based Foods*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="consumeWheat" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="consumeWheat" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Pastries*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="consumePastries" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="consumePastries" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Are you exposed to smoking?*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="exposedSmoking" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="exposedSmoking" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Processed Meats*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="consumeProcessedMeats" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="consumeProcessedMeats" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Do you diet often?*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="dietOften" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="dietOften" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Do you exercise regularly?*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="exerciseRegularly" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="exerciseRegularly" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Are you under excessive stress?*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="excessiveStress" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="excessiveStress" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Are you exposed to chemicals at work?*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="chemicalsWork" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="chemicalsWork" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="cookFromScratch">How often do you cook meals from scratch?*</label>
+                    <input type="text" id="cookFromScratch" name="cookFromScratch" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="eatAtHome">How often do you eat meals at home?*</label>
+                    <input type="text" id="eatAtHome" name="eatAtHome" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="takeaway">How often do you eat meals out / Buy a take-away?*</label>
+                    <input type="text" id="takeaway" name="takeaway" required>
+                </div>
+            </div>
+
+            <!-- STEP 5: GOALS -->
+            <div class="form-step" data-step="5">
+                <h2>Goals</h2>
+                
+                <div class="form-group">
+                    <label for="primaryGoal">What is your PRIMARY Goal?*</label>
+                    <select id="primaryGoal" name="primaryGoal" required>
+                        <option value="">Select...</option>
+                        <option value="Fat Loss">Fat Loss</option>
+                        <option value="Muscle Gain">Muscle Gain</option>
+                        <option value="Performance">Performance</option>
+                        <option value="Body Composition">Body Composition</option>
+                        <option value="Health">Health</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="secondaryGoal">What is your SECONDARY Goal?*</label>
+                    <select id="secondaryGoal" name="secondaryGoal" required>
+                        <option value="">Select...</option>
+                        <option value="Fat Loss">Fat Loss</option>
+                        <option value="Muscle Gain">Muscle Gain</option>
+                        <option value="Performance">Performance</option>
+                        <option value="Body Composition">Body Composition</option>
+                        <option value="Health">Health</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="leastImportant">Which is LEAST important?*</label>
+                    <select id="leastImportant" name="leastImportant" required>
+                        <option value="">Select...</option>
+                        <option value="Fat Loss">Fat Loss</option>
+                        <option value="Muscle Gain">Muscle Gain</option>
+                        <option value="Performance">Performance</option>
+                        <option value="Body Composition">Body Composition</option>
+                        <option value="Health">Health</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="goals3months">What would you like to achieve in the next 3 months?*</label>
+                    <textarea id="goals3months" name="goals3months" rows="3" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="goals6months">What would you like to achieve in the next 6 months?*</label>
+                    <textarea id="goals6months" name="goals6months" rows="3" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="goals12months">What would you like to achieve in the next 12 months?*</label>
+                    <textarea id="goals12months" name="goals12months" rows="3" required placeholder="Be as specific as possible. Get to a certain body fat? Bench a certain amount? Improve your max number of pull-ups?"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="nutritionPerformanceGoals">What are your nutrition and performance goals?*</label>
+                    <textarea id="nutritionPerformanceGoals" name="nutritionPerformanceGoals" rows="3" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="pastAttempts">What have you tried in the past to achieve your nutrition and fitness goals? This includes any diet or exercise protocols, previous coaching, supplement use, books, etc.*</label>
+                    <textarea id="pastAttempts" name="pastAttempts" rows="4" required></textarea>
+                </div>
+            </div>
+
+            <!-- STEP 6: HEALTH -->
+            <div class="form-step" data-step="6">
+                <h2>Health</h2>
+                <p style="color: #6b7280; margin-bottom: 24px;">Regular physical activity is safe for most people. However, some individuals should check with their doctor before they start an exercise program. Please read the following questions carefully and answer each one honestly and accurately. All information will be kept confidential.</p>
+
+                <h3>General</h3>
+
+                <div class="form-group">
+                    <label>Have you undergone a complete medical exam in the last 5 years?*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="medicalExam" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="medicalExam" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Have you had any major surgery or been hospitalized in the last 12 months?*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="hospitalized" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="hospitalized" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="surgeryDetails">Please give details</label>
+                    <textarea id="surgeryDetails" name="surgeryDetails" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="injuries">Have you suffered any injuries including musculature, organ, or bone damage? If Yes when and what treatment and / or rehabilitation have you had?*</label>
+                    <textarea id="injuries" name="injuries" rows="3" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="weightLossSurgery">Have you had any weight loss surgery in the past e.g. Gastric band / bypass?*</label>
+                    <textarea id="weightLossSurgery" name="weightLossSurgery" rows="2" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="implants">Any physical or medical implants of any kind? e.g. breast, stents etc?*</label>
+                    <textarea id="implants" name="implants" rows="2" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="medicalConditions">Please state if you have current or past medical conditions that could affect your ability to exercise?*</label>
+                    <textarea id="medicalConditions" name="medicalConditions" rows="3" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="medications">If you're on any medications, please list them (including hormonal birth control)*</label>
+                    <textarea id="medications" name="medications" rows="3" required placeholder="Certain medications may affect weight loss."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Has anyone in your immediate family had a heart attack, heart condition, heart surgery, or stroke?*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="familyHeartHistory" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="familyHeartHistory" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Do you suffer from a pulmonary disease (e.g. asthma, emphysema) that may be aggravated by exercise?*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="pulmonaryDisease" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="pulmonaryDisease" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 32px; margin-bottom: 16px;">Have you experienced any of the following in the last 12 months?</h3>
+
+                <div class="form-group">
+                    <label>Headaches so severe that you had to stop what you were doing*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="severeHeadaches" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="severeHeadaches" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Simultaneous headache, racing heart, and sweating*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="racingHeart" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="racingHeart" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Faintness or lightheadedness when you stood up quickly*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="lightheaded" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="lightheaded" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Heart beating unusually fast or skipping beats*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="fastHeart" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="fastHeart" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Black out or loss of consciousness*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="blackout" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="blackout" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 32px; margin-bottom: 16px;">Have you ever been diagnosed with any of the following?</h3>
+
+                <div class="form-group">
+                    <label>High cholesterol*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="highCholesterol" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="highCholesterol" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>High triglycerides*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="highTriglycerides" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="highTriglycerides" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>High uric acid*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="highUricAcid" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="highUricAcid" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>High blood pressure*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="highBloodPressure" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="highBloodPressure" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Diabetes*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="diabetes" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="diabetes" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Cancer*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="cancer" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="cancer" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Epilepsy/seizures*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="epilepsy" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="epilepsy" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Thyroid problems*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="thyroid" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="thyroid" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Any type of hormone imbalance*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="hormoneImbalance" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="hormoneImbalance" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 32px; margin-bottom: 16px;">Cardiovascular/Circulatory</h3>
+
+                <div class="form-group">
+                    <label>Congenital heart disease*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="congenitalHeart" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="congenitalHeart" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Rheumatic fever*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="rheumaticFever" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="rheumaticFever" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Stroke*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="stroke" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="stroke" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Angina*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="angina" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="angina" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Heart attack / failure*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="heartAttack" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="heartAttack" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Heart enlargement*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="heartEnlargement" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="heartEnlargement" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Heart murmur*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="heartMurmur" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="heartMurmur" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Abnormal resting or exercise electrocardiogram*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="abnormalECG" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="abnormalECG" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 32px; margin-bottom: 16px;">Do you have a history of the following?</h3>
+
+                <div class="form-group">
+                    <label>Pain or tightness of the chest, neck, shoulders or arms at rest or during exercise*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="chestPain" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="chestPain" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Rapid beating of your heart not associated with exercise*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="rapidHeartbeat" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="rapidHeartbeat" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Heart palpitations or skipped beats at rest or during exercise*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="palpitations" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="palpitations" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Badly swollen feet or ankles*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="swollenFeet" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="swollenFeet" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 32px; margin-bottom: 16px;">Other</h3>
+
+                <div class="form-group">
+                    <label for="otherHealthProblems">If you have any other diagnosed health problems, please list them</label>
+                    <textarea id="otherHealthProblems" name="otherHealthProblems" rows="4" placeholder="This information may be relevant for program design, particularly if you have a heart condition."></textarea>
+                </div>
+
+                <!-- FEMALE SECTION -->
+                <div id="femaleSection" style="display: none;">
+                    <h3 style="margin-top: 32px; margin-bottom: 16px;">Ladies</h3>
+                    <p style="color: #6b7280; margin-bottom: 16px;">(Gentlemen, you can skip this section)</p>
+
+                    <div class="form-group">
+                        <label>Are you currently pregnant, or have you given birth within the last 8 weeks?</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="pregnant" value="Yes"> Yes</label>
+                            <label><input type="radio" name="pregnant" value="No"> No</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Is your menstrual cycle regular?</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="regularCycle" value="Yes"> Yes</label>
+                            <label><input type="radio" name="regularCycle" value="No"> No</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cycleLength">What is your average menstrual cycle length (days)?</label>
+                        <input type="number" id="cycleLength" name="cycleLength" min="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastPeriod">When was your last period?</label>
+                        <input type="date" id="lastPeriod" name="lastPeriod">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="periodDuration">How long do they usually last?</label>
+                        <input type="text" id="periodDuration" name="periodDuration">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cycleSymptoms">Do you suffer from any adverse symptoms from your cycle? i.e. Cravings, Mood swings, Lethargy, Cramps or Bloating?</label>
+                        <textarea id="cycleSymptoms" name="cycleSymptoms" rows="2"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cycleWeightGain">Do you notice any significant weight gain at certain points in your cycle? If so is this accompanied by any significant / visible water retention?</label>
+                        <textarea id="cycleWeightGain" name="cycleWeightGain" rows="2"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Have you ever lost your period in the last 5 years?</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="lostPeriod" value="Yes"> Yes</label>
+                            <label><input type="radio" name="lostPeriod" value="No"> No</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lostPeriodDetails">If yes, please outline the circumstances that led this to occur and when it occurred</label>
+                        <textarea id="lostPeriodDetails" name="lostPeriodDetails" rows="2"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Have you regained your cycle?</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="regainedCycle" value="Yes"> Yes</label>
+                            <label><input type="radio" name="regainedCycle" value="No"> No</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="amenorrhea">Have you ever suffered from amenorrhea?</label>
+                        <textarea id="amenorrhea" name="amenorrhea" rows="2"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="menopausal">Are you peri- or post-menopausal?</label>
+                        <textarea id="menopausal" name="menopausal" rows="2"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 7: TRAINING -->
+            <div class="form-step" data-step="7">
+                <h2>Training & Exercise</h2>
+                
+                <div class="form-group">
+                    <label>Do you use a pedometer to track your steps?*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="usePedometer" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="usePedometer" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="averageSteps">If yes, please give average step total (per week)*</label>
+                    <input type="number" id="averageSteps" name="averageSteps">
+                </div>
+
+                <div class="form-group">
+                    <label>Are you willing to exercise for 5 or more hours per week?*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="willing5Hours" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="willing5Hours" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="sessionsPerWeek">How many training sessions per week?*</label>
+                    <select id="sessionsPerWeek" name="sessionsPerWeek" required>
+                        <option value="">---------</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="sessionLength">Length of each training session (minutes)*</label>
+                    <input type="number" id="sessionLength" name="sessionLength" min="15" max="300" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="preferredTrainingTimes">What times of day do you prefer to train?*</label>
+                    <textarea id="preferredTrainingTimes" name="preferredTrainingTimes" rows="2" required placeholder="E.g., Early morning (5-7am), Lunch (12-1pm), Evening (6-8pm)"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Do you currently have a gym membership?*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="gymMembership" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="gymMembership" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>If no, are you willing to get one?*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="willingGym" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="willingGym" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Are you currently on an exercise program, or have you used a structured exercise program in the last 12 months?*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="structuredProgram" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="structuredProgram" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="currentProgram">If yes, what specifically are you doing each day (i.e. time of day, activity type, duration)?*</label>
+                    <textarea id="currentProgram" name="currentProgram" rows="3" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="outsideActivities">Please indicate the physical activities that you participate in outside the gym and outside of work*</label>
+                    <textarea id="outsideActivities" name="outsideActivities" rows="2" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Have you ever played a sport?*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="playedSport" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="playedSport" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="sportDetails">If yes, which sport(s), when, and how long?</label>
+                    <textarea id="sportDetails" name="sportDetails" rows="2"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Are you currently working with a trainer or coach?*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="currentCoach" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="currentCoach" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="coachExperience">If yes, review your experience, likes and dislikes</label>
+                    <textarea id="coachExperience" name="coachExperience" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="movementsEnjoy">Please could you list any particular movements that you really connect well with / enjoy / find it easy to progress?*</label>
+                    <textarea id="movementsEnjoy" name="movementsEnjoy" rows="2" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="movementsDislike">Please could you list any particular movements that you do not really connect well with / enjoy / find it easy to progress?*</label>
+                    <textarea id="movementsDislike" name="movementsDislike" rows="2" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>If there are any days that must be kept as non-training days, please specify these*</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="restDays" value="Monday"> Monday</label>
+                        <label><input type="checkbox" name="restDays" value="Tuesday"> Tuesday</label>
+                        <label><input type="checkbox" name="restDays" value="Wednesday"> Wednesday</label>
+                        <label><input type="checkbox" name="restDays" value="Thursday"> Thursday</label>
+                        <label><input type="checkbox" name="restDays" value="Friday"> Friday</label>
+                        <label><input type="checkbox" name="restDays" value="Saturday"> Saturday</label>
+                        <label><input type="checkbox" name="restDays" value="Sunday"> Sunday</label>
+                        <label><input type="checkbox" name="restDays" value="Can Train Every Day"> Can Train Every Day</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 8: SLEEP & LIFESTYLE -->
+            <div class="form-step" data-step="8">
+                <h2>Sleep & Lifestyle</h2>
+                
+                <h3>Sleep Quality</h3>
+
+                <div class="form-group">
+                    <label for="sleepHours">On average how many hours sleep a night do you get?*</label>
+                    <input type="number" id="sleepHours" name="sleepHours" min="0" max="24" step="0.5" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="troubleFalling">Do you have trouble falling asleep?*</label>
+                    <select id="troubleFalling" name="troubleFalling" required>
+                        <option value="">---------</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                        <option value="Sometimes">Sometimes</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="troubleWaking">Do you have trouble waking up in the morning?*</label>
+                    <select id="troubleWaking" name="troubleWaking" required>
+                        <option value="">---------</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                        <option value="Sometimes">Sometimes</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>If you wake during the night, at what times?*</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="wakeTime" value="1-3am"> 1-3am</label>
+                        <label><input type="checkbox" name="wakeTime" value="3-5am"> 3-5am</label>
+                        <label><input type="checkbox" name="wakeTime" value="5-7am"> 5-7am</label>
+                        <label><input type="checkbox" name="wakeTime" value="Don't wake"> Don't wake</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="wakeTimes">How many times during the night do you wake?*</label>
+                    <input type="number" id="wakeTimes" name="wakeTimes" min="0" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Do you sleep in a room with any light or noise?*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="lightNoise" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="lightNoise" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="wakeTired">Do you wake up feeling tired?*</label>
+                    <select id="wakeTired" name="wakeTired" required>
+                        <option value="">---------</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                        <option value="Sometimes">Sometimes</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="bedLate">Do you go to bed later than 11pm?*</label>
+                    <select id="bedLate" name="bedLate" required>
+                        <option value="">---------</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                        <option value="Sometimes">Sometimes</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="sleepMeds">Do you use medications to help you sleep? (note: this includes melatonin)*</label>
+                    <select id="sleepMeds" name="sleepMeds" required>
+                        <option value="">---------</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                        <option value="Sometimes">Sometimes</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="sleepMedsDetails">If YES or sometimes, provide details of medication</label>
+                    <textarea id="sleepMedsDetails" name="sleepMedsDetails" rows="2"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Do you feel that your sleep is of high-quality?*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="sleepQuality" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="sleepQuality" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Do you sleep in a room containing any artificial light sources?*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="artificialLight" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="artificialLight" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Do you function well staying up and working late into the evening?*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="functionLate" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="functionLate" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Do you sleep in later on your days off work?*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="sleepInDaysOff" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="sleepInDaysOff" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Do you require an alarm clock to wake in the mornings?*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="alarmClock" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="alarmClock" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="afternoonNap">Do you often require a nap in the afternoon?*</label>
+                    <select id="afternoonNap" name="afternoonNap" required>
+                        <option value="">---------</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                        <option value="Sometimes">Sometimes</option>
+                    </select>
+                </div>
+
+                <h3 style="margin-top: 32px; margin-bottom: 16px;">Alertness & Timing</h3>
+
+                <div class="form-group">
+                    <label for="alertWaking">How alert are you in the first 30 min of waking?*</label>
+                    <select id="alertWaking" name="alertWaking" required>
+                        <option value="">---------</option>
+                        <option value="Very">Very</option>
+                        <option value="Fairly">Fairly</option>
+                        <option value="Slightly">Slightly</option>
+                        <option value="Not at all">Not at all</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="hungryWaking">How hungry are you in the first 30 min of waking?*</label>
+                    <select id="hungryWaking" name="hungryWaking" required>
+                        <option value="">---------</option>
+                        <option value="Very">Very</option>
+                        <option value="Fairly">Fairly</option>
+                        <option value="Slightly">Slightly</option>
+                        <option value="Not at all">Not at all</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="idealWakeTime">Approximately what time would you aim to wake up if you were entirely free to plan your day?*</label>
+                    <input type="time" id="idealWakeTime" name="idealWakeTime" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="tiredTime">Approximately what time in the evening do you begin to feel tired?*</label>
+                    <input type="time" id="tiredTime" name="tiredTime" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="physicalActivityTime">Approximately what times of day do you feel most suited to performing physical activity?*</label>
+                    <input type="time" id="physicalActivityTime" name="physicalActivityTime" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="mentalActivityTime">Approximately what time of day do you feel most suited to performing mental activity (studying, work etc.)?*</label>
+                    <input type="time" id="mentalActivityTime" name="mentalActivityTime" required>
+                </div>
+
+                <h3 style="margin-top: 32px; margin-bottom: 16px;">Occupation & Lifestyle</h3>
+
+                <div class="form-group">
+                    <label for="occupation">What is your occupation?*</label>
+                    <input type="text" id="occupation" name="occupation" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="occupationActivity">What level of physical activity does your occupation require?*</label>
+                    <input type="text" id="occupationActivity" name="occupationActivity" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Does it require shift work?*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="shiftWork" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="shiftWork" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="travelDetails">If your occupation involves travel and / or nights away from home, please give details*</label>
+                    <textarea id="travelDetails" name="travelDetails" rows="2" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Do you have a support system in place?*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="supportSystem" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="supportSystem" value="No" required> No</label>
+                    </div>
+                    <p style="color: #6b7280; font-size: 14px; margin-top: 4px;">For example, is your spouse supportive of your fitness goals?</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="weekdaySchedule">Describe your average weekday, from the time you wake up until the time you go to bed*</label>
+                    <textarea id="weekdaySchedule" name="weekdaySchedule" rows="4" required placeholder="Please include as much information as possible including times, travel times, and any specific information so we can build you a comprehensive and accurate plan"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="weekendSchedule">What do your weekends look like?*</label>
+                    <textarea id="weekendSchedule" name="weekendSchedule" rows="4" required placeholder="Please include as much information as possible including times, travel times, and any specific information so we can build you a comprehensive and accurate plan"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="caffeineIntakeDetails">Please describe your caffeine intake*</label>
+                    <textarea id="caffeineIntakeDetails" name="caffeineIntakeDetails" rows="2" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="upcomingEvent">Do you have a major event (wedding, vacation, etc.) coming up in the next 4 months?*</label>
+                    <input type="text" id="upcomingEvent" name="upcomingEvent" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="activityLevel">What is your activity level at your job?*</label>
+                    <select id="activityLevel" name="activityLevel" required>
+                        <option value="">---------</option>
+                        <option value="Sedentary">Sedentary</option>
+                        <option value="Lightly Active">Lightly Active</option>
+                        <option value="Moderately Active">Moderately Active</option>
+                        <option value="Very Active">Very Active</option>
+                        <option value="Extremely Active">Extremely Active</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="workingHours">What are your usual working hours?*</label>
+                    <textarea id="workingHours" name="workingHours" rows="2" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Are you responsible for looking after young children?</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="youngChildren" value="Yes"> Yes</label>
+                        <label><input type="radio" name="youngChildren" value="No"> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Do you currently prepare your meals in advance?*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="mealPrep" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="mealPrep" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="mealPrepRoutine">If so, please describe your meal prepping routine</label>
+                    <textarea id="mealPrepRoutine" name="mealPrepRoutine" rows="2"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="knowMealPrep">If not, do you know how to meal-prep?</label>
+                    <select id="knowMealPrep" name="knowMealPrep">
+                        <option value="">---------</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="activityTrackerSteps">If you use an activity tracker, what is the average number of steps you log daily?</label>
+                    <input type="number" id="activityTrackerSteps" name="activityTrackerSteps">
+                </div>
+
+                <div class="form-group">
+                    <label for="activityTrackerType">What type of activity tracker do you use?</label>
+                    <input type="text" id="activityTrackerType" name="activityTrackerType">
+                </div>
+
+                <div class="form-group">
+                    <label for="weightHistory">How much did you weigh 3, 6, 12, and 18 months ago?</label>
+                    <textarea id="weightHistory" name="weightHistory" rows="2"></textarea>
+                </div>
+            </div>
+
+            <!-- STEP 9: DIGESTION -->
+            <div class="form-step" data-step="9">
+                <h2>Digestion</h2>
+                <p style="color: #6b7280; margin-bottom: 16px;">This section of the questionnaire will help you discover where your digestive system is having problems. It is a screening tool and does not constitute an exact diagnosis of your problem. However, it can point you in the right direction in determining where the highest priorities lie in your healing process. Select the number that best describes the intensity of your symptoms. If you do not know the answer to a question, leave it blank.</p>
+                
+                <p style="color: #6b7280; margin-bottom: 24px;"><strong>Scale:</strong><br>
+                0 = Symptom is not present/rarely present<br>
+                1 = Mild/sometimes<br>
+                2 = Moderate/often<br>
+                3 = Severe/almost always</p>
+
+                <div class="form-group">
+                    <label>Burping*</label>
+                    <div class="scale-group">
+                        <label><input type="radio" name="burping" value="0" required> 0</label>
+                        <label><input type="radio" name="burping" value="1" required> 1</label>
+                        <label><input type="radio" name="burping" value="2" required> 2</label>
+                        <label><input type="radio" name="burping" value="3" required> 3</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Fullness for extended periods of time*</label>
+                    <div class="scale-group">
+                        <label><input type="radio" name="fullness" value="0" required> 0</label>
+                        <label><input type="radio" name="fullness" value="1" required> 1</label>
+                        <label><input type="radio" name="fullness" value="2" required> 2</label>
+                        <label><input type="radio" name="fullness" value="3" required> 3</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Poor appetite*</label>
+                    <div class="scale-group">
+                        <label><input type="radio" name="poorAppetite" value="0" required> 0</label>
+                        <label><input type="radio" name="poorAppetite" value="1" required> 1</label>
+                        <label><input type="radio" name="poorAppetite" value="2" required> 2</label>
+                        <label><input type="radio" name="poorAppetite" value="3" required> 3</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Stomach upsets easily*</label>
+                    <div class="scale-group">
+                        <label><input type="radio" name="stomachUpset" value="0" required> 0</label>
+                        <label><input type="radio" name="stomachUpset" value="1" required> 1</label>
+                        <label><input type="radio" name="stomachUpset" value="2" required> 2</label>
+                        <label><input type="radio" name="stomachUpset" value="3" required> 3</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>History of constipation*</label>
+                    <div class="scale-group">
+                        <label><input type="radio" name="constipation" value="0" required> 0</label>
+                        <label><input type="radio" name="constipation" value="1" required> 1</label>
+                        <label><input type="radio" name="constipation" value="2" required> 2</label>
+                        <label><input type="radio" name="constipation" value="3" required> 3</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Iron-deficiency anaemia*</label>
+                    <div class="scale-group">
+                        <label><input type="radio" name="ironDeficiency" value="0" required> 0</label>
+                        <label><input type="radio" name="ironDeficiency" value="1" required> 1</label>
+                        <label><input type="radio" name="ironDeficiency" value="2" required> 2</label>
+                        <label><input type="radio" name="ironDeficiency" value="3" required> 3</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Nausea after taking supplements*</label>
+                    <div class="scale-group">
+                        <label><input type="radio" name="nauseaSupplements" value="0" required> 0</label>
+                        <label><input type="radio" name="nauseaSupplements" value="1" required> 1</label>
+                        <label><input type="radio" name="nauseaSupplements" value="2" required> 2</label>
+                        <label><input type="radio" name="nauseaSupplements" value="3" required> 3</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Abdominal cramps*</label>
+                    <div class="scale-group">
+                        <label><input type="radio" name="abdominalCramps" value="0" required> 0</label>
+                        <label><input type="radio" name="abdominalCramps" value="1" required> 1</label>
+                        <label><input type="radio" name="abdominalCramps" value="2" required> 2</label>
+                        <label><input type="radio" name="abdominalCramps" value="3" required> 3</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Indigestion one to three hours after eating*</label>
+                    <div class="scale-group">
+                        <label><input type="radio" name="indigestion" value="0" required> 0</label>
+                        <label><input type="radio" name="indigestion" value="1" required> 1</label>
+                        <label><input type="radio" name="indigestion" value="2" required> 2</label>
+                        <label><input type="radio" name="indigestion" value="3" required> 3</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Fatigue after eating*</label>
+                    <div class="scale-group">
+                        <label><input type="radio" name="fatigueEating" value="0" required> 0</label>
+                        <label><input type="radio" name="fatigueEating" value="1" required> 1</label>
+                        <label><input type="radio" name="fatigueEating" value="2" required> 2</label>
+                        <label><input type="radio" name="fatigueEating" value="3" required> 3</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Lower bowel gas*</label>
+                    <div class="scale-group">
+                        <label><input type="radio" name="lowerBowelGas" value="0" required> 0</label>
+                        <label><input type="radio" name="lowerBowelGas" value="1" required> 1</label>
+                        <label><input type="radio" name="lowerBowelGas" value="2" required> 2</label>
+                        <label><input type="radio" name="lowerBowelGas" value="3" required> 3</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Alternating constipation and diarrhoea*</label>
+                    <div class="scale-group">
+                        <label><input type="radio" name="alternating" value="0" required> 0</label>
+                        <label><input type="radio" name="alternating" value="1" required> 1</label>
+                        <label><input type="radio" name="alternating" value="2" required> 2</label>
+                        <label><input type="radio" name="alternating" value="3" required> 3</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Diarrhoea*</label>
+                    <div class="scale-group">
+                        <label><input type="radio" name="diarrhoea" value="0" required> 0</label>
+                        <label><input type="radio" name="diarrhoea" value="1" required> 1</label>
+                        <label><input type="radio" name="diarrhoea" value="2" required> 2</label>
+                        <label><input type="radio" name="diarrhoea" value="3" required> 3</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Roughage and fibre cause constipation*</label>
+                    <div class="scale-group">
+                        <label><input type="radio" name="roughage" value="0" required> 0</label>
+                        <label><input type="radio" name="roughage" value="1" required> 1</label>
+                        <label><input type="radio" name="roughage" value="2" required> 2</label>
+                        <label><input type="radio" name="roughage" value="3" required> 3</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Mucus in stools*</label>
+                    <div class="scale-group">
+                        <label><input type="radio" name="mucus" value="0" required> 0</label>
+                        <label><input type="radio" name="mucus" value="1" required> 1</label>
+                        <label><input type="radio" name="mucus" value="2" required> 2</label>
+                        <label><input type="radio" name="mucus" value="3" required> 3</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Stool poorly formed*</label>
+                    <div class="scale-group">
+                        <label><input type="radio" name="poorlyFormed" value="0" required> 0</label>
+                        <label><input type="radio" name="poorlyFormed" value="1" required> 1</label>
+                        <label><input type="radio" name="poorlyFormed" value="2" required> 2</label>
+                        <label><input type="radio" name="poorlyFormed" value="3" required> 3</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Shiny stool*</label>
+                    <div class="scale-group">
+                        <label><input type="radio" name="shinyStool" value="0" required> 0</label>
+                        <label><input type="radio" name="shinyStool" value="1" required> 1</label>
+                        <label><input type="radio" name="shinyStool" value="2" required> 2</label>
+                        <label><input type="radio" name="shinyStool" value="3" required> 3</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Foul-smelling stool*</label>
+                    <div class="scale-group">
+                        <label><input type="radio" name="foulSmelling" value="0" required> 0</label>
+                        <label><input type="radio" name="foulSmelling" value="1" required> 1</label>
+                        <label><input type="radio" name="foulSmelling" value="2" required> 2</label>
+                        <label><input type="radio" name="foulSmelling" value="3" required> 3</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Three or more large bowel movements daily*</label>
+                    <div class="scale-group">
+                        <label><input type="radio" name="threeBowel" value="0" required> 0</label>
+                        <label><input type="radio" name="threeBowel" value="1" required> 1</label>
+                        <label><input type="radio" name="threeBowel" value="2" required> 2</label>
+                        <label><input type="radio" name="threeBowel" value="3" required> 3</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Dry, flaky skin and / or dry, brittle hair*</label>
+                    <div class="scale-group">
+                        <label><input type="radio" name="drySkin" value="0" required> 0</label>
+                        <label><input type="radio" name="drySkin" value="1" required> 1</label>
+                        <label><input type="radio" name="drySkin" value="2" required> 2</label>
+                        <label><input type="radio" name="drySkin" value="3" required> 3</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Pain in left side under rib cage or chronic stomach pain*</label>
+                    <div class="scale-group">
+                        <label><input type="radio" name="leftSidePain" value="0" required> 0</label>
+                        <label><input type="radio" name="leftSidePain" value="1" required> 1</label>
+                        <label><input type="radio" name="leftSidePain" value="2" required> 2</label>
+                        <label><input type="radio" name="leftSidePain" value="3" required> 3</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Acne*</label>
+                    <div class="scale-group">
+                        <label><input type="radio" name="acne" value="0" required> 0</label>
+                        <label><input type="radio" name="acne" value="1" required> 1</label>
+                        <label><input type="radio" name="acne" value="2" required> 2</label>
+                        <label><input type="radio" name="acne" value="3" required> 3</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Food allergies*</label>
+                    <div class="scale-group">
+                        <label><input type="radio" name="foodAllergiesDigestion" value="0" required> 0</label>
+                        <label><input type="radio" name="foodAllergiesDigestion" value="1" required> 1</label>
+                        <label><input type="radio" name="foodAllergiesDigestion" value="2" required> 2</label>
+                        <label><input type="radio" name="foodAllergiesDigestion" value="3" required> 3</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Difficulty gaining weight*</label>
+                    <div class="scale-group">
+                        <label><input type="radio" name="difficultyGaining" value="0" required> 0</label>
+                        <label><input type="radio" name="difficultyGaining" value="1" required> 1</label>
+                        <label><input type="radio" name="difficultyGaining" value="2" required> 2</label>
+                        <label><input type="radio" name="difficultyGaining" value="3" required> 3</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 10: BASIC INFO -->
+            <div class="form-step" data-step="10">
+                <h2>Basic Information</h2>
+                
+                <div class="form-group">
+                    <label for="referral">Who can we thank for the referral, or how did you hear about us?</label>
+                    <textarea id="referral" name="referral" rows="2"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="whyWorkWithMe">Why are you interested in working with me?*</label>
+                    <textarea id="whyWorkWithMe" name="whyWorkWithMe" rows="3" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="expectations">What are your expectations from your coaching and the program?*</label>
+                    <textarea id="expectations" name="expectations" rows="3" required placeholder="Please be as detailed as possible"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>May I share your images on social media?</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="shareImages" value="Yes"> Yes</label>
+                        <label><input type="radio" name="shareImages" value="No"> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>If yes, would you like to remain anonymous?</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="anonymous" value="Yes"> Yes</label>
+                        <label><input type="radio" name="anonymous" value="No"> No</label>
+                    </div>
+                    <p style="color: #6b7280; font-size: 14px; margin-top: 4px;">Distinguishing physical features will be removed</p>
+                </div>
+
+                <h3 style="margin-top: 32px; margin-bottom: 16px;">Privacy</h3>
+
+                <div class="form-group">
+                    <label>I consent to receive promotional emails about your products and services*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="promotionalEmails" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="promotionalEmails" value="No" required> No</label>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 32px; margin-bottom: 16px;">Contact Details</h3>
+
+                <div class="form-group">
+                    <label for="phoneNumber">Phone number</label>
+                    <input type="tel" id="phoneNumber" name="phoneNumber">
+                </div>
+
+                <div class="form-group">
+                    <label for="streetAddress">Street Address</label>
+                    <input type="text" id="streetAddress" name="streetAddress">
+                </div>
+
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" name="city">
+                </div>
+
+                <div class="form-group">
+                    <label for="state">State*</label>
+                    <input type="text" id="state" name="state" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="country">Country*</label>
+                    <input type="text" id="country" name="country" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="zip">Zip</label>
+                    <input type="text" id="zip" name="zip">
+                </div>
+            </div>
+
         </form>
-
-        <!-- Navigation Buttons -->
-        <div class="form-navigation">
-            <button type="button" id="prevBtn" onclick="changeStep(-1)" style="display: none;">Previous</button>
-            <button type="button" id="nextBtn" onclick="changeStep(1)">Next</button>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html>
