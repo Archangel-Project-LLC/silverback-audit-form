@@ -1,5 +1,6 @@
 let currentStep = 1;
 const totalSteps = 10;
+const DEV_MODE = true; // Set to false for production
 
 // Initialize form
 document.addEventListener('DOMContentLoaded', function() {
@@ -134,6 +135,11 @@ function changeStep(direction) {
 }
 
 function validateCurrentStep() {
+    // Skip validation in dev mode
+    if (DEV_MODE) {
+        return true;
+    }
+    
     const currentStepElement = document.querySelector(`[data-step="${currentStep}"].form-step`);
     if (!currentStepElement) {
         console.error('Current step element not found');
