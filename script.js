@@ -240,45 +240,47 @@ function submitForm() {
         return;
     }
     
-    // Collect all form data
-    const formData = new FormData(document.getElementById('auditForm'));
+    // Show loading state
+    const submitBtn = document.getElementById('nextBtn');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Submitting...';
+    submitBtn.disabled = true;
     
-    // Convert FormData to JSON object
-    const data = {};
+    // Collect all form data
+    const form = document.getElementById('auditForm');
+    const formData = new FormData(form);
+    
+    // Convert to URL-encoded string for Zapier
+    const params = new URLSearchParams();
     formData.forEach((value, key) => {
-        // Handle multiple values (like checkboxes)
-        if (data[key]) {
-            if (Array.isArray(data[key])) {
-                data[key].push(value);
-            } else {
-                data[key] = [data[key], value];
-            }
-        } else {
-            data[key] = value;
-        }
+        params.append(key, value);
     });
     
-    // Send to Zapier webhook
-    fetch('https://hooks.zapier.com/hooks/catch/11053045/uwyqlbd/', {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(response => {
-        if (response.ok) {
+    // Send to Zapier using XMLHttpRequest (more reliable than fetch)
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'https://hooks.zapier.com/hooks/catch/11053045/uwyqlbd/');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+    xhr.onload = function() {
+        if (xhr.status === 200) {
             alert('Form submitted successfully! We will be in touch soon.');
-            // Optionally redirect or reset form
-            document.getElementById('auditForm').reset();
+            form.reset();
             currentStep = 1;
             showStep(1);
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
         } else {
-            alert('There was an error submitting the form. Please try again.');
+            alert('There was an error. Please try again.');
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('There was an error submitting the form. Please try again.');
-    });
+    };
+    
+    xhr.onerror = function() {
+        alert('There was an error. Please try again.');
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+    };
+    
+    xhr.send(params.toString());
 }
