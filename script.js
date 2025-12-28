@@ -1,6 +1,6 @@
 let currentStep = 1;
 const totalSteps = 10;
-const DEV_MODE = true; // Set to false for production
+const DEV_MODE = false; // Set to false for production
 
 // Initialize form
 document.addEventListener('DOMContentLoaded', function() {
@@ -243,9 +243,42 @@ function submitForm() {
     // Collect all form data
     const formData = new FormData(document.getElementById('auditForm'));
     
-    // Here you'll add Zapier webhook integration
-    console.log('Form submitted!');
-    console.log('Form data:', Object.fromEntries(formData));
+    // Convert FormData to JSON object
+    const data = {};
+    formData.forEach((value, key) => {
+        // Handle multiple values (like checkboxes)
+        if (data[key]) {
+            if (Array.isArray(data[key])) {
+                data[key].push(value);
+            } else {
+                data[key] = [data[key], value];
+            }
+        } else {
+            data[key] = value;
+        }
+    });
     
-    alert('Form submitted successfully! (Zapier integration coming next)');
+    // Send to Zapier webhook
+    fetch('https://hooks.zapier.com/hooks/catch/11053045/uwyqlbd/', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('Form submitted successfully! We will be in touch soon.');
+            // Optionally redirect or reset form
+            document.getElementById('auditForm').reset();
+            currentStep = 1;
+            showStep(1);
+        } else {
+            alert('There was an error submitting the form. Please try again.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('There was an error submitting the form. Please try again.');
+    });
 }
