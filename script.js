@@ -18,6 +18,25 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+    
+    // Conditional field logic - Average steps
+    const pedometerRadios = document.querySelectorAll('input[name="usePedometer"]');
+    const averageStepsField = document.getElementById('averageSteps');
+    
+    if (pedometerRadios.length > 0 && averageStepsField) {
+        pedometerRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'Yes') {
+                    averageStepsField.required = true;
+                } else {
+                    averageStepsField.required = false;
+                    averageStepsField.value = '';
+                    averageStepsField.style.borderColor = '#d1d5db';
+                    averageStepsField.style.boxShadow = 'none';
+                }
+            });
+        });
+    }
 });
 
 function showStep(step) {
@@ -30,6 +49,9 @@ function showStep(step) {
     if (currentStepElement) {
         currentStepElement.classList.add('active');
     }
+    
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     
     // Update progress bar
     updateProgressBar(step);
@@ -109,18 +131,87 @@ function validateCurrentStep() {
     const inputs = currentStepElement.querySelectorAll('input[required], select[required], textarea[required]');
     
     let isValid = true;
+    let firstInvalidField = null;
     
     inputs.forEach(input => {
-        if (!input.value.trim()) {
-            input.style.borderColor = '#ef4444';
-            isValid = false;
+        // Skip validation for conditional fields
+        const fieldId = input.id;
+        
+        // Skip average steps if pedometer is No
+        if (fieldId === 'averageSteps') {
+            const pedometer = document.querySelector('input[name="usePedometer"]:checked');
+            if (pedometer && pedometer.value === 'No') {
+                input.style.borderColor = '#d1d5db';
+                input.style.boxShadow = 'none';
+                return;
+            }
+        }
+        
+        // Check if field is actually visible
+        if (input.offsetParent === null) {
+            // Field is hidden, skip validation
+            return;
+        }
+        
+        // Validate based on input type
+        let fieldIsValid = false;
+        
+        if (input.type === 'radio') {
+            const name = input.name;
+            const checked = currentStepElement.querySelector(`input[name="${name}"]:checked`);
+            fieldIsValid = checked !== null;
+            
+            // Highlight radio group label if invalid
+            if (!fieldIsValid) {
+                const radioGroup = input.closest('.form-group');
+                if (radioGroup) {
+                    radioGroup.style.backgroundColor = '#fef2f2';
+                    radioGroup.style.padding = '12px';
+                    radioGroup.style.borderRadius = '6px';
+                }
+            } else {
+                const radioGroup = input.closest('.form-group');
+                if (radioGroup) {
+                    radioGroup.style.backgroundColor = '';
+                    radioGroup.style.padding = '';
+                }
+            }
+        } else if (input.type === 'checkbox') {
+            // For checkbox groups, at least one should be checked
+            const name = input.name;
+            const checked = currentStepElement.querySelector(`input[name="${name}"]:checked`);
+            fieldIsValid = checked !== null;
         } else {
-            input.style.borderColor = '#d1d5db';
+            fieldIsValid = input.value.trim() !== '';
+        }
+        
+        if (!fieldIsValid) {
+            if (input.type !== 'radio' && input.type !== 'checkbox') {
+                input.style.borderColor = '#ef4444';
+                input.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.1)';
+            }
+            isValid = false;
+            if (!firstInvalidField) {
+                firstInvalidField = input;
+            }
+        } else {
+            if (input.type !== 'radio' && input.type !== 'checkbox') {
+                input.style.borderColor = '#d1d5db';
+                input.style.boxShadow = 'none';
+            }
         }
     });
     
     if (!isValid) {
         alert('Please fill in all required fields before continuing.');
+        if (firstInvalidField) {
+            firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => {
+                if (firstInvalidField.focus) {
+                    firstInvalidField.focus();
+                }
+            }, 300);
+        }
     }
     
     return isValid;
@@ -134,9 +225,9 @@ function submitForm() {
     // Collect all form data
     const formData = new FormData(document.getElementById('auditForm'));
     
-    // Here you'll add Google Sheets integration
+    // Here you'll add Zapier webhook integration
     console.log('Form submitted!');
     console.log('Form data:', Object.fromEntries(formData));
     
-    alert('Form submitted successfully! (Google Sheets integration coming next)');
+    alert('Form submitted successfully! (Zapier integration coming next)');
 }
