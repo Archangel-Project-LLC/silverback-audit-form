@@ -1,1 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silverback Performance Coaching - Client Audit</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-step active" data-step="1">
+                <div class="step-number">1</div>
+                <div class="step-label">Locale</div>
+            </div>
+            <div class="progress-step" data-step="2">
+                <div class="step-number">2</div>
+                <div class="step-label">Photos</div>
+            </div>
+            <div class="progress-step" data-step="3">
+                <div class="step-number">3</div>
+                <div class="step-label">Measurements</div>
+            </div>
+            <div class="progress-step" data-step="4">
+                <div class="step-number">4</div>
+                <div class="step-label">Nutrition</div>
+            </div>
+            <div class="progress-step" data-step="5">
+                <div class="step-number">5</div>
+                <div class="step-label">Goals</div>
+            </div>
+            <div class="progress-step" data-step="6">
+                <div class="step-number">6</div>
+                <div class="step-label">Health</div>
+            </div>
+            <div class="progress-step" data-step="7">
+                <div class="step-number">7</div>
+                <div class="step-label">Training</div>
+            </div>
+            <div class="progress-step" data-step="8">
+                <div class="step-number">8</div>
+                <div class="step-label">Sleep & Lifestyle</div>
+            </div>
+            <div class="progress-step" data-step="9">
+                <div class="step-number">9</div>
+                <div class="step-label">Digestion</div>
+            </div>
+            <div class="progress-step" data-step="10">
+                <div class="step-number">10</div>
+                <div class="step-label">Basic Info</div>
+            </div>
+        </div>
 
+        <!-- Form -->
+        <form id="auditForm">
+            
+            <!-- STEP 1: LOCALE -->
+            <div class="form-step active" data-step="1">
+                <h2>Basic Information</h2>
+                
+                <div class="form-group">
+                    <label for="fullName">Full Name*</label>
+                    <input type="text" id="fullName" name="fullName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address*</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number*</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="dob">Date of Birth*</label>
+                    <input type="date" id="dob" name="dob" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="height">Height (cm)*</label>
+                    <input type="number" id="height" name="height" min="100" max="250" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="weight">Current Weight (kg)*</label>
+                    <input type="number" id="weight" name="weight" min="30" max="300" step="0.1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="biologicalSex">Biological Sex*</label>
+                    <select id="biologicalSex" name="biologicalSex" required>
+                        <option value="">---------</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+            </div>
+
+        </form>
+
+        <!-- Navigation Buttons -->
+        <div class="form-navigation">
+            <button type="button" id="prevBtn" onclick="changeStep(-1)" style="display: none;">Previous</button>
+            <button type="button" id="nextBtn" onclick="changeStep(1)">Next</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
