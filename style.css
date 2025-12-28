@@ -100,6 +100,13 @@ h2 {
     color: #1f2937;
 }
 
+h3 {
+    font-size: 20px;
+    margin-top: 32px;
+    margin-bottom: 16px;
+    color: #374151;
+}
+
 .form-group {
     margin-bottom: 24px;
 }
@@ -184,14 +191,16 @@ input[type="file"] {
 
 /* Navigation Buttons */
 .form-navigation {
-    display: flex;
+    display: flex !important;
     justify-content: space-between;
     margin-top: 32px;
     padding-top: 24px;
     border-top: 1px solid #e5e7eb;
+    width: 100%;
 }
 
 button {
+    display: inline-block !important;
     padding: 12px 32px;
     font-size: 16px;
     font-weight: 600;
