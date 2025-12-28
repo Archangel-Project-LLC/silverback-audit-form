@@ -4,6 +4,20 @@ const totalSteps = 10;
 // Initialize form
 document.addEventListener('DOMContentLoaded', function() {
     showStep(currentStep);
+    
+    // Female section toggle
+    const biologicalSexSelect = document.getElementById('biologicalSex');
+    const femaleSection = document.getElementById('femaleSection');
+    
+    if (biologicalSexSelect && femaleSection) {
+        biologicalSexSelect.addEventListener('change', function() {
+            if (this.value === 'Female') {
+                femaleSection.style.display = 'block';
+            } else {
+                femaleSection.style.display = 'none';
+            }
+        });
+    }
 });
 
 function showStep(step) {
@@ -68,14 +82,13 @@ function changeStep(direction) {
     }
     
     const newStep = currentStep + direction;
-    
-    // Check if we should skip female section (Step 6 has female questions)
     const biologicalSex = document.getElementById('biologicalSex')?.value;
     
+    // Skip female section (Step 6) if Male selected
     if (newStep === 6 && biologicalSex === 'Male' && direction === 1) {
         // Skip to step 7
         currentStep = 7;
-    } else if (newStep === 6 && biologicalSex === 'Male' && direction === -1) {
+    } else if (currentStep === 7 && biologicalSex === 'Male' && direction === -1) {
         // Coming back from step 7, go to step 5
         currentStep = 5;
     } else if (newStep >= 1 && newStep <= totalSteps) {
