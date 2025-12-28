@@ -103,31 +103,43 @@ function changeStep(direction) {
         return;
     }
     
-    const newStep = currentStep + direction;
+    // Calculate new step
+    let newStep = currentStep + direction;
     const biologicalSex = document.getElementById('biologicalSex')?.value;
     
-    // Skip female section (Step 6) if Male selected
-    if (newStep === 6 && biologicalSex === 'Male' && direction === 1) {
-        // Skip to step 7
-        currentStep = 7;
-    } else if (currentStep === 7 && biologicalSex === 'Male' && direction === -1) {
-        // Coming back from step 7, go to step 5
-        currentStep = 5;
-    } else if (newStep >= 1 && newStep <= totalSteps) {
+    // Handle step transitions
+    if (direction === 1) {
+        // Moving forward
+        if (newStep === 6 && biologicalSex === 'Male') {
+            newStep = 7; // Skip female section
+        }
+        
+        // If we're on last step and clicking next, submit
+        if (currentStep === totalSteps) {
+            submitForm();
+            return;
+        }
+    } else {
+        // Moving backward
+        if (newStep === 6 && biologicalSex === 'Male') {
+            newStep = 5; // Skip female section going back
+        }
+    }
+    
+    // Ensure step is in valid range
+    if (newStep >= 1 && newStep <= totalSteps) {
         currentStep = newStep;
+        showStep(currentStep);
     }
-    
-    // If on last step and clicking next, submit form
-    if (currentStep === totalSteps && direction === 1) {
-        submitForm();
-        return;
-    }
-    
-    showStep(currentStep);
 }
 
 function validateCurrentStep() {
     const currentStepElement = document.querySelector(`[data-step="${currentStep}"].form-step`);
+    if (!currentStepElement) {
+        console.error('Current step element not found');
+        return false;
+    }
+    
     const inputs = currentStepElement.querySelectorAll('input[required], select[required], textarea[required]');
     
     let isValid = true;
