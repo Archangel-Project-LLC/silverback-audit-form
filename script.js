@@ -248,32 +248,51 @@ function submitForm() {
     
     // Collect all form data
     const form = document.getElementById('auditForm');
-    const formData = new FormData(form);
+    
+    console.log('=== STARTING DATA COLLECTION ===');
+    
+    // Collect ALL inputs from the ENTIRE form (not just visible step)
     const data = {};
     
-    // Get all form data first
-    for (let [key, value] of formData.entries()) {
-        // Skip empty values
-        if (value && value.toString().trim() !== '') {
-            data[key] = value;
-        }
-    }
+    // Get all inputs, selects, textareas from the form
+    const allInputs = form.querySelectorAll('input, select, textarea');
+    console.log('Total inputs found:', allInputs.length);
     
-    // Then manually add radio buttons (FormData sometimes misses them)
-    const radioButtons = form.querySelectorAll('input[type="radio"]:checked');
-    radioButtons.forEach(radio => {
-        data[radio.name] = radio.value;
+    allInputs.forEach(input => {
+        const name = input.name;
+        if (!name) return; // Skip inputs without names
+        
+        if (input.type === 'radio') {
+            if (input.checked) {
+                data[name] = input.value;
+                console.log('Radio collected:', name, '=', input.value);
+            }
+        } else if (input.type === 'checkbox') {
+            if (input.checked) {
+                if (data[name]) {
+                    data[name] += ', ' + input.value;
+                } else {
+                    data[name] = input.value;
+                }
+                console.log('Checkbox collected:', name, '=', input.value);
+            }
+        } else if (input.type === 'file') {
+            // Skip file inputs for now
+            console.log('Skipping file input:', name);
+        } else if (input.value && input.value.trim() !== '') {
+            data[name] = input.value;
+            console.log('Input collected:', name, '=', input.value.substring(0, 50));
+        }
     });
     
-    // And checkboxes
-    const checkboxes = form.querySelectorAll('input[type="checkbox"]:checked');
-    checkboxes.forEach(checkbox => {
-        if (data[checkbox.name]) {
-            data[checkbox.name] += ', ' + checkbox.value;
-        } else {
-            data[checkbox.name] = checkbox.value;
-        }
-    });
+    console.log('=== DATA COLLECTION COMPLETE ===');
+    console.log('Total fields collected:', Object.keys(data).length);
+    console.log('Health fields check:');
+    console.log('- medicalExam:', data.medicalExam);
+    console.log('- diabetes:', data.diabetes);
+    console.log('- highBloodPressure:', data.highBloodPressure);
+    console.log('- hospitalized:', data.hospitalized);
+    console.log('Full data:', data);
     
     // Convert data object to URL-encoded string
     const params = new URLSearchParams();
@@ -281,12 +300,17 @@ function submitForm() {
         params.append(key, data[key]);
     }
     
+    console.log('=== SENDING TO ZAPIER ===');
+    
     // Send to Zapier using XMLHttpRequest with form encoding
     const xhr = new XMLHttpRequest();
     xhr.open('POST', 'https://hooks.zapier.com/hooks/catch/11053045/uwyqlbd/');
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     
     xhr.onload = function() {
+        console.log('Response status:', xhr.status);
+        console.log('Response:', xhr.responseText);
+        
         if (xhr.status === 200) {
             alert('Form submitted successfully! We will be in touch soon.');
             form.reset();
@@ -302,6 +326,7 @@ function submitForm() {
     };
     
     xhr.onerror = function() {
+        console.log('XHR Error occurred');
         alert('There was an error. Please try again.');
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
