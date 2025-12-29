@@ -246,33 +246,32 @@ function submitForm() {
     submitBtn.textContent = 'Submitting...';
     submitBtn.disabled = true;
     
-    // Collect all form data including radio buttons
+    // Collect all form data
     const form = document.getElementById('auditForm');
     const formData = new FormData(form);
-    
-    // Convert to plain object, handling multiple values
     const data = {};
     
-    // Get all form inputs
-    const inputs = form.querySelectorAll('input, select, textarea');
-    inputs.forEach(input => {
-        if (input.type === 'radio') {
-            // Only add if checked
-            if (input.checked) {
-                data[input.name] = input.value;
-            }
-        } else if (input.type === 'checkbox') {
-            // Handle checkboxes - append to array if multiple
-            if (input.checked) {
-                if (data[input.name]) {
-                    data[input.name] += ', ' + input.value;
-                } else {
-                    data[input.name] = input.value;
-                }
-            }
-        } else if (input.value) {
-            // Regular inputs
-            data[input.name] = input.value;
+    // Get all form data first
+    for (let [key, value] of formData.entries()) {
+        // Skip empty values
+        if (value && value.toString().trim() !== '') {
+            data[key] = value;
+        }
+    }
+    
+    // Then manually add radio buttons (FormData sometimes misses them)
+    const radioButtons = form.querySelectorAll('input[type="radio"]:checked');
+    radioButtons.forEach(radio => {
+        data[radio.name] = radio.value;
+    });
+    
+    // And checkboxes
+    const checkboxes = form.querySelectorAll('input[type="checkbox"]:checked');
+    checkboxes.forEach(checkbox => {
+        if (data[checkbox.name]) {
+            data[checkbox.name] += ', ' + checkbox.value;
+        } else {
+            data[checkbox.name] = checkbox.value;
         }
     });
     
