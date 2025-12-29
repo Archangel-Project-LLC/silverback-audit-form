@@ -1,6 +1,6 @@
 let currentStep = 1;
 const totalSteps = 10;
-const DEV_MODE = true; // Set to false for production
+const DEV_MODE = false; // Set to false for production
 
 // Initialize form
 document.addEventListener('DOMContentLoaded', function() {
