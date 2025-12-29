@@ -246,20 +246,40 @@ function submitForm() {
     submitBtn.textContent = 'Submitting...';
     submitBtn.disabled = true;
     
-    // Collect all form data
+    // Collect all form data including radio buttons
     const form = document.getElementById('auditForm');
     const formData = new FormData(form);
     
-    // Convert to URL-encoded string for Zapier
-    const params = new URLSearchParams();
-    formData.forEach((value, key) => {
-        params.append(key, value);
+    // Convert to plain object, handling multiple values
+    const data = {};
+    
+    // Get all form inputs
+    const inputs = form.querySelectorAll('input, select, textarea');
+    inputs.forEach(input => {
+        if (input.type === 'radio') {
+            // Only add if checked
+            if (input.checked) {
+                data[input.name] = input.value;
+            }
+        } else if (input.type === 'checkbox') {
+            // Handle checkboxes - append to array if multiple
+            if (input.checked) {
+                if (data[input.name]) {
+                    data[input.name] += ', ' + input.value;
+                } else {
+                    data[input.name] = input.value;
+                }
+            }
+        } else if (input.value) {
+            // Regular inputs
+            data[input.name] = input.value;
+        }
     });
     
-    // Send to Zapier using XMLHttpRequest (more reliable than fetch)
+    // Send to Zapier using XMLHttpRequest
     const xhr = new XMLHttpRequest();
     xhr.open('POST', 'https://hooks.zapier.com/hooks/catch/11053045/uwyqlbd/');
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.setRequestHeader('Content-Type', 'application/json');
     
     xhr.onload = function() {
         if (xhr.status === 200) {
@@ -282,5 +302,5 @@ function submitForm() {
         submitBtn.disabled = false;
     };
     
-    xhr.send(params.toString());
+    xhr.send(JSON.stringify(data));
 }
