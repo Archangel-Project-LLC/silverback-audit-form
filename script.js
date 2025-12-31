@@ -5,6 +5,7 @@ const DEV_MODE = true;
 document.addEventListener('DOMContentLoaded', function() {
     showStep(currentStep);
     
+    // Female section toggle
     const biologicalSexSelect = document.getElementById('biologicalSex');
     const femaleSection = document.getElementById('femaleSection');
     
@@ -18,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Pedometer conditional field
     const pedometerRadios = document.querySelectorAll('input[name="usePedometer"]');
     const averageStepsField = document.getElementById('averageSteps');
     
@@ -93,17 +95,9 @@ function changeStep(direction) {
     const biologicalSex = document.getElementById('biologicalSex')?.value;
     
     if (direction === 1) {
-        if (newStep === 6 && biologicalSex === 'Male') {
-            newStep = 7;
-        }
-        
         if (currentStep === totalSteps) {
             submitForm();
             return;
-        }
-    } else {
-        if (newStep === 6 && biologicalSex === 'Male') {
-            newStep = 5;
         }
     }
     
@@ -126,8 +120,12 @@ function submitForm() {
     const form = document.getElementById('auditForm');
     const data = {};
     
-    // Get ALL inputs from the form
-    const allInputs = form.querySelectorAll('input, select, textarea');
+    // Get ALL inputs from the ENTIRE document (not just form)
+    // This ensures we catch the female section which may be outside form-steps
+    const allInputs = document.querySelectorAll('#auditForm input, #auditForm select, #auditForm textarea, #femaleSection input, #femaleSection select, #femaleSection textarea');
+    
+    console.log('=== COLLECTING FORM DATA ===');
+    console.log('Total inputs found:', allInputs.length);
     
     allInputs.forEach(input => {
         const name = input.name;
@@ -136,6 +134,7 @@ function submitForm() {
         if (input.type === 'radio') {
             if (input.checked) {
                 data[name] = input.value;
+                console.log('Radio:', name, '=', input.value);
             }
         } else if (input.type === 'checkbox') {
             if (input.checked) {
@@ -144,17 +143,20 @@ function submitForm() {
                 } else {
                     data[name] = input.value;
                 }
+                console.log('Checkbox:', name, '=', data[name]);
             }
         } else if (input.type === 'file') {
-            // Skip files
+            // Skip file inputs
+            console.log('Skipping file:', name);
         } else if (input.value && input.value.trim() !== '') {
             data[name] = input.value;
+            console.log('Field:', name, '=', input.value.substring(0, 50));
         }
     });
     
-    console.log('=== FORM DATA ===');
-    console.log('Total fields:', Object.keys(data).length);
-    console.log('All data:', data);
+    console.log('=== TOTAL FIELDS COLLECTED ===');
+    console.log('Count:', Object.keys(data).length);
+    console.log('Data:', data);
     
     // Create hidden iframe for form submission
     let iframe = document.getElementById('hidden-iframe');
@@ -166,7 +168,7 @@ function submitForm() {
         document.body.appendChild(iframe);
     }
     
-    // Create a hidden form
+    // Create a hidden form with ALL collected data
     const hiddenForm = document.createElement('form');
     hiddenForm.method = 'POST';
     hiddenForm.action = 'https://hooks.zapier.com/hooks/catch/11053045/uwyqlbd/';
@@ -182,6 +184,9 @@ function submitForm() {
         hiddenForm.appendChild(input);
     }
     
+    console.log('=== SUBMITTING TO ZAPIER ===');
+    console.log('Fields being sent:', Object.keys(data).length);
+    
     document.body.appendChild(hiddenForm);
     hiddenForm.submit();
     
@@ -194,5 +199,5 @@ function submitForm() {
         showStep(1);
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
-    }, 1000);
+    }, 1500);
 }
