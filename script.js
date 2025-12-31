@@ -1,12 +1,10 @@
 let currentStep = 1;
 const totalSteps = 10;
-const DEV_MODE = true; // Set to false for production
+const DEV_MODE = true;
 
-// Initialize form
 document.addEventListener('DOMContentLoaded', function() {
     showStep(currentStep);
     
-    // Female section toggle
     const biologicalSexSelect = document.getElementById('biologicalSex');
     const femaleSection = document.getElementById('femaleSection');
     
@@ -20,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Conditional field logic - Average steps
     const pedometerRadios = document.querySelectorAll('input[name="usePedometer"]');
     const averageStepsField = document.getElementById('averageSteps');
     
@@ -32,8 +29,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     averageStepsField.required = false;
                     averageStepsField.value = '';
-                    averageStepsField.style.borderColor = '#d1d5db';
-                    averageStepsField.style.boxShadow = 'none';
                 }
             });
         });
@@ -41,23 +36,16 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function showStep(step) {
-    // Hide all steps
     const steps = document.querySelectorAll('.form-step');
     steps.forEach(s => s.classList.remove('active'));
     
-    // Show current step
     const currentStepElement = document.querySelector(`[data-step="${step}"].form-step`);
     if (currentStepElement) {
         currentStepElement.classList.add('active');
     }
     
-    // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    
-    // Update progress bar
     updateProgressBar(step);
-    
-    // Update navigation buttons
     updateButtons(step);
 }
 
@@ -83,14 +71,12 @@ function updateButtons(step) {
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     
-    // Show/hide previous button
     if (step === 1) {
         prevBtn.style.display = 'none';
     } else {
         prevBtn.style.display = 'block';
     }
     
-    // Change next button text on last step
     if (step === totalSteps) {
         nextBtn.textContent = 'Submit';
     } else {
@@ -99,35 +85,28 @@ function updateButtons(step) {
 }
 
 function changeStep(direction) {
-    // Validate current step before moving forward
-    if (direction === 1 && !validateCurrentStep()) {
+    if (direction === 1 && !DEV_MODE && !validateCurrentStep()) {
         return;
     }
     
-    // Calculate new step
     let newStep = currentStep + direction;
     const biologicalSex = document.getElementById('biologicalSex')?.value;
     
-    // Handle step transitions
     if (direction === 1) {
-        // Moving forward
         if (newStep === 6 && biologicalSex === 'Male') {
-            newStep = 7; // Skip female section
+            newStep = 7;
         }
         
-        // If we're on last step and clicking next, submit
         if (currentStep === totalSteps) {
             submitForm();
             return;
         }
     } else {
-        // Moving backward
         if (newStep === 6 && biologicalSex === 'Male') {
-            newStep = 5; // Skip female section going back
+            newStep = 5;
         }
     }
     
-    // Ensure step is in valid range
     if (newStep >= 1 && newStep <= totalSteps) {
         currentStep = newStep;
         showStep(currentStep);
@@ -135,137 +114,28 @@ function changeStep(direction) {
 }
 
 function validateCurrentStep() {
-    // Skip validation in dev mode
-    if (DEV_MODE) {
-        return true;
-    }
-    
-    const currentStepElement = document.querySelector(`[data-step="${currentStep}"].form-step`);
-    if (!currentStepElement) {
-        console.error('Current step element not found');
-        return false;
-    }
-    
-    const inputs = currentStepElement.querySelectorAll('input[required], select[required], textarea[required]');
-    
-    let isValid = true;
-    let firstInvalidField = null;
-    
-    inputs.forEach(input => {
-        // Skip validation for conditional fields
-        const fieldId = input.id;
-        
-        // Skip average steps if pedometer is No
-        if (fieldId === 'averageSteps') {
-            const pedometer = document.querySelector('input[name="usePedometer"]:checked');
-            if (pedometer && pedometer.value === 'No') {
-                input.style.borderColor = '#d1d5db';
-                input.style.boxShadow = 'none';
-                return;
-            }
-        }
-        
-        // Check if field is actually visible
-        if (input.offsetParent === null) {
-            // Field is hidden, skip validation
-            return;
-        }
-        
-        // Validate based on input type
-        let fieldIsValid = false;
-        
-        if (input.type === 'radio') {
-            const name = input.name;
-            const checked = currentStepElement.querySelector(`input[name="${name}"]:checked`);
-            fieldIsValid = checked !== null;
-            
-            // Highlight radio group label if invalid
-            if (!fieldIsValid) {
-                const radioGroup = input.closest('.form-group');
-                if (radioGroup) {
-                    radioGroup.style.backgroundColor = '#fef2f2';
-                    radioGroup.style.padding = '12px';
-                    radioGroup.style.borderRadius = '6px';
-                }
-            } else {
-                const radioGroup = input.closest('.form-group');
-                if (radioGroup) {
-                    radioGroup.style.backgroundColor = '';
-                    radioGroup.style.padding = '';
-                }
-            }
-        } else if (input.type === 'checkbox') {
-            // For checkbox groups, at least one should be checked
-            const name = input.name;
-            const checked = currentStepElement.querySelector(`input[name="${name}"]:checked`);
-            fieldIsValid = checked !== null;
-        } else {
-            fieldIsValid = input.value.trim() !== '';
-        }
-        
-        if (!fieldIsValid) {
-            if (input.type !== 'radio' && input.type !== 'checkbox') {
-                input.style.borderColor = '#ef4444';
-                input.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.1)';
-            }
-            isValid = false;
-            if (!firstInvalidField) {
-                firstInvalidField = input;
-            }
-        } else {
-            if (input.type !== 'radio' && input.type !== 'checkbox') {
-                input.style.borderColor = '#d1d5db';
-                input.style.boxShadow = 'none';
-            }
-        }
-    });
-    
-    if (!isValid) {
-        alert('Please fill in all required fields before continuing.');
-        if (firstInvalidField) {
-            firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            setTimeout(() => {
-                if (firstInvalidField.focus) {
-                    firstInvalidField.focus();
-                }
-            }, 300);
-        }
-    }
-    
-    return isValid;
+    return true;
 }
 
 function submitForm() {
-    if (!validateCurrentStep()) {
-        return;
-    }
-    
-    // Show loading state
     const submitBtn = document.getElementById('nextBtn');
     const originalText = submitBtn.textContent;
     submitBtn.textContent = 'Submitting...';
     submitBtn.disabled = true;
     
-    // Collect all form data
     const form = document.getElementById('auditForm');
-    
-    console.log('=== STARTING DATA COLLECTION ===');
-    
-    // Collect ALL inputs from the ENTIRE form (not just visible step)
     const data = {};
     
-    // Get all inputs, selects, textareas from the form
+    // Get ALL inputs from the form
     const allInputs = form.querySelectorAll('input, select, textarea');
-    console.log('Total inputs found:', allInputs.length);
     
     allInputs.forEach(input => {
         const name = input.name;
-        if (!name) return; // Skip inputs without names
+        if (!name) return;
         
         if (input.type === 'radio') {
             if (input.checked) {
                 data[name] = input.value;
-                console.log('Radio collected:', name, '=', input.value);
             }
         } else if (input.type === 'checkbox') {
             if (input.checked) {
@@ -274,60 +144,47 @@ function submitForm() {
                 } else {
                     data[name] = input.value;
                 }
-                console.log('Checkbox collected:', name, '=', input.value);
             }
         } else if (input.type === 'file') {
-            // Skip file inputs for now
-            console.log('Skipping file input:', name);
+            // Skip files
         } else if (input.value && input.value.trim() !== '') {
             data[name] = input.value;
-            console.log('Input collected:', name, '=', input.value.substring(0, 50));
         }
     });
     
-    console.log('=== DATA COLLECTION COMPLETE ===');
-    console.log('Total fields collected:', Object.keys(data).length);
-    console.log('Health fields check:');
-    console.log('- medicalExam:', data.medicalExam);
-    console.log('- diabetes:', data.diabetes);
-    console.log('- highBloodPressure:', data.highBloodPressure);
-    console.log('- hospitalized:', data.hospitalized);
-    console.log('Full data:', data);
+    // Log what we're sending
+    console.log('=== FORM DATA ===');
+    console.log('Total fields:', Object.keys(data).length);
+    console.log('medicalExam:', data.medicalExam);
+    console.log('hospitalized:', data.hospitalized);
+    console.log('diabetes:', data.diabetes);
+    console.log('All data:', data);
     
-    // Convert data object to URL-encoded string
+    // Send to Zapier
     const params = new URLSearchParams();
     for (let key in data) {
         params.append(key, data[key]);
     }
     
-    console.log('=== SENDING TO ZAPIER ===');
-    
-    // Send to Zapier using XMLHttpRequest with form encoding
     const xhr = new XMLHttpRequest();
     xhr.open('POST', 'https://hooks.zapier.com/hooks/catch/11053045/uwyqlbd/');
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     
     xhr.onload = function() {
-        console.log('Response status:', xhr.status);
-        console.log('Response:', xhr.responseText);
-        
         if (xhr.status === 200) {
-            alert('Form submitted successfully! We will be in touch soon.');
+            alert('Form submitted successfully!');
             form.reset();
             currentStep = 1;
             showStep(1);
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
         } else {
-            alert('There was an error. Please try again.');
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
+            alert('Error submitting. Please try again.');
         }
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
     };
     
     xhr.onerror = function() {
-        console.log('XHR Error occurred');
-        alert('There was an error. Please try again.');
+        alert('Error submitting. Please try again.');
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
     };
