@@ -166,28 +166,25 @@ function submitForm() {
         params.append(key, data[key]);
     }
     
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'https://hooks.zapier.com/hooks/catch/11053045/uwyqlbd/');
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            alert('Form submitted successfully!');
-            form.reset();
-            currentStep = 1;
-            showStep(1);
-        } else {
-            alert('Error submitting. Please try again.');
-        }
+    fetch('https://hooks.zapier.com/hooks/catch/11053045/uwyqlbd/', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: params.toString()
+    })
+    .then(() => {
+        alert('Form submitted successfully!');
+        form.reset();
+        currentStep = 1;
+        showStep(1);
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
-    };
-    
-    xhr.onerror = function() {
+    })
+    .catch(() => {
         alert('Error submitting. Please try again.');
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
-    };
-    
-    xhr.send(params.toString());
+    });
 }
