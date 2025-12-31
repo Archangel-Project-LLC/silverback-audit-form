@@ -152,39 +152,47 @@ function submitForm() {
         }
     });
     
-    // Log what we're sending
     console.log('=== FORM DATA ===');
     console.log('Total fields:', Object.keys(data).length);
-    console.log('medicalExam:', data.medicalExam);
-    console.log('hospitalized:', data.hospitalized);
-    console.log('diabetes:', data.diabetes);
     console.log('All data:', data);
     
-    // Send to Zapier
-    const params = new URLSearchParams();
-    for (let key in data) {
-        params.append(key, data[key]);
+    // Create hidden iframe for form submission
+    let iframe = document.getElementById('hidden-iframe');
+    if (!iframe) {
+        iframe = document.createElement('iframe');
+        iframe.id = 'hidden-iframe';
+        iframe.name = 'hidden-iframe';
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
     }
     
-    fetch('https://hooks.zapier.com/hooks/catch/11053045/uwyqlbd/', {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: params.toString()
-    })
-    .then(() => {
+    // Create a hidden form
+    const hiddenForm = document.createElement('form');
+    hiddenForm.method = 'POST';
+    hiddenForm.action = 'https://hooks.zapier.com/hooks/catch/11053045/uwyqlbd/';
+    hiddenForm.target = 'hidden-iframe';
+    hiddenForm.style.display = 'none';
+    
+    // Add all data as hidden inputs
+    for (let key in data) {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = data[key];
+        hiddenForm.appendChild(input);
+    }
+    
+    document.body.appendChild(hiddenForm);
+    hiddenForm.submit();
+    
+    // Clean up and show success
+    setTimeout(() => {
+        document.body.removeChild(hiddenForm);
         alert('Form submitted successfully!');
         form.reset();
         currentStep = 1;
         showStep(1);
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
-    })
-    .catch(() => {
-        alert('Error submitting. Please try again.');
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-    });
+    }, 1000);
 }
