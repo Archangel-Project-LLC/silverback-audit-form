@@ -2,9 +2,86 @@ let currentStep = 1;
 const totalSteps = 10;
 const DEV_MODE = true;
 
+// --- Save-as-you-go -------------------------------------------------------
+// Every answer and the current step are written to this browser's localStorage
+// on each change, restored when the page is reopened, and cleared on submit.
+const DRAFT_KEY = 'spc-audit-draft-v1';
+
+function allFields() {
+    return document.querySelectorAll(
+        '#auditForm input, #auditForm select, #auditForm textarea, ' +
+        '#femaleSection input, #femaleSection select, #femaleSection textarea'
+    );
+}
+
+function saveDraft() {
+    try {
+        const data = {};
+        allFields().forEach(input => {
+            if (!input.name || input.type === 'file') return;
+            if (input.type === 'radio') {
+                if (input.checked) data[input.name] = input.value;
+            } else if (input.type === 'checkbox') {
+                if (!Array.isArray(data[input.name])) data[input.name] = [];
+                if (input.checked) data[input.name].push(input.value);
+            } else {
+                data[input.name] = input.value;
+            }
+        });
+        localStorage.setItem(DRAFT_KEY, JSON.stringify({ step: currentStep, data: data, savedAt: Date.now() }));
+    } catch (e) {
+        // Private browsing or storage blocked: the form still works, it just won't resume.
+    }
+}
+
+function restoreDraft() {
+    try {
+        const raw = localStorage.getItem(DRAFT_KEY);
+        if (!raw) return false;
+        const draft = JSON.parse(raw);
+        const data = draft.data || {};
+        let restored = 0;
+        allFields().forEach(input => {
+            if (!input.name || input.type === 'file' || !(input.name in data)) return;
+            const value = data[input.name];
+            if (input.type === 'radio') {
+                input.checked = (input.value === value);
+            } else if (input.type === 'checkbox') {
+                input.checked = Array.isArray(value) && value.indexOf(input.value) !== -1;
+            } else {
+                input.value = value;
+            }
+            restored++;
+        });
+        // Re-apply the conditional sections to the restored answers
+        const sexSelect = document.getElementById('biologicalSex');
+        if (sexSelect) sexSelect.dispatchEvent(new Event('change'));
+        document.querySelectorAll('input[name="usePedometer"]:checked')
+            .forEach(radio => radio.dispatchEvent(new Event('change')));
+        if (draft.step >= 1 && draft.step <= totalSteps) currentStep = draft.step;
+        return restored > 0;
+    } catch (e) {
+        return false;
+    }
+}
+
+function clearDraft() {
+    try { localStorage.removeItem(DRAFT_KEY); } catch (e) {}
+}
+
+function showResumeNotice() {
+    const form = document.getElementById('auditForm');
+    if (!form || document.getElementById('resumeNotice')) return;
+    const notice = document.createElement('div');
+    notice.id = 'resumeNotice';
+    notice.setAttribute('role', 'status');
+    notice.style.cssText = 'margin:0 0 16px;padding:10px 14px;border-radius:6px;background:rgba(0,0,0,0.06);font-size:14px;line-height:1.4;';
+    notice.textContent = 'Welcome back. Your previous answers have been restored and you can carry on from where you left off.';
+    form.insertAdjacentElement('afterbegin', notice);
+}
+// -------------------------------------------------------------------------
+
 document.addEventListener('DOMContentLoaded', function() {
-    showStep(currentStep);
-    
     // Female section toggle
     const biologicalSexSelect = document.getElementById('biologicalSex');
     const femaleSection = document.getElementById('femaleSection');
@@ -35,6 +112,16 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    // Restore runs after the conditional handlers above are attached,
+    // so a restored "Female" or "Yes" re-opens its section.
+    const hadDraft = restoreDraft();
+    showStep(currentStep);
+    if (hadDraft) showResumeNotice();
+
+    // Save on every answer, not just on Next
+    document.addEventListener('input', saveDraft);
+    document.addEventListener('change', saveDraft);
 });
 
 function showStep(step) {
@@ -104,6 +191,7 @@ function changeStep(direction) {
     if (newStep >= 1 && newStep <= totalSteps) {
         currentStep = newStep;
         showStep(currentStep);
+        saveDraft();
     }
 }
 
@@ -194,6 +282,9 @@ function submitForm() {
     setTimeout(() => {
         document.body.removeChild(hiddenForm);
         alert('Form submitted successfully!');
+        clearDraft();
+        const notice = document.getElementById('resumeNotice');
+        if (notice) notice.remove();
         form.reset();
         currentStep = 1;
         showStep(1);
