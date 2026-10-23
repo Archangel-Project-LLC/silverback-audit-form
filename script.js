@@ -1,6 +1,6 @@
 let currentStep = 1;
 const totalSteps = 10;
-const DEV_MODE = true;
+const DEV_MODE = false;
 
 // --- Save-as-you-go -------------------------------------------------------
 // Every answer and the current step are written to this browser's localStorage
@@ -183,6 +183,15 @@ function changeStep(direction) {
     
     if (direction === 1) {
         if (currentStep === totalSteps) {
+            if (!DEV_MODE) {
+                const gap = firstInvalidStep();
+                if (gap && gap !== currentStep) {
+                    currentStep = gap;
+                    showStep(currentStep);
+                    validateStep(currentStep); // re-run on the visible step so the message shows
+                    return;
+                }
+            }
             submitForm();
             return;
         }
@@ -195,8 +204,34 @@ function changeStep(direction) {
     }
 }
 
-function validateCurrentStep() {
+function validateStep(step) {
+    const stepEl = document.querySelector(`[data-step="${step}"].form-step`);
+    if (!stepEl) return true;
+    const femaleSection = document.getElementById('femaleSection');
+    const fields = stepEl.querySelectorAll('input, select, textarea');
+    for (const field of fields) {
+        if (field.disabled || field.type === 'hidden') continue;
+        // Skip the Ladies section while it is hidden
+        if (femaleSection && femaleSection.contains(field) && femaleSection.style.display === 'none') continue;
+        if (!field.checkValidity()) {
+            if (typeof field.reportValidity === 'function') field.reportValidity();
+            if (typeof field.scrollIntoView === 'function') field.scrollIntoView({ block: 'center', behavior: 'smooth' });
+            return false;
+        }
+    }
     return true;
+}
+
+function validateCurrentStep() {
+    return validateStep(currentStep);
+}
+
+// On submit, re-check every step so a restored draft can't skip a gap
+function firstInvalidStep() {
+    for (let step = 1; step <= totalSteps; step++) {
+        if (!validateStep(step)) return step;
+    }
+    return 0;
 }
 
 function submitForm() {
